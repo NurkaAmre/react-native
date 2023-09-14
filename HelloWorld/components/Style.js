@@ -1,6 +1,8 @@
-import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, Button, Pressable, Modal, StatusBar, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, StyleSheet, useWindowDimensions, Platform } from 'react-native';
 
 export default function Style() {
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   return (
     <View >
       <View style={styles.darkMode}>
@@ -8,18 +10,19 @@ export default function Style() {
           Style Inheritance
         </Text>
       </View>
-      <View style={[styles.box, styles.sonic, styles.boxShadow, styles.androidShadow]}>
+      {/* <View style={[styles.box, styles.sonic, styles.boxShadow, styles.androidShadow, {width: windowWidth > 500 ? "70%" : "90%",
+     height: windowHeight >600 ? "40%" : "30%"}]}>
          <Text style={styles.title}>Sonic 😁👍</Text>
-      </View>
-      <View style={[styles.box, styles.amre, styles.androidShadow]}>
-         <Text style={styles.title}>Amre 😘💕</Text>
+      </View> */}
+      <View style={[styles.box, styles.amre, styles.androidShadow, {width: windowWidth > 500 ? "70%" : "90%",
+     height: windowHeight > 600 ? "50%" : "60%"}]}>
+        <Text style={{ fontSize: windowWidth > 600 ? 30 : 14 }}>Amre 😘💕</Text>
       </View>
     </View> 
   );
 }
 
 const styles = StyleSheet.create({
-
   darkMode: {
     backgroundColor: "#000", 
   },
@@ -27,25 +30,28 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   box: {
-    width: '100%',
-    height: '30%',
-    // padding: 10,
+    ...Platform.select({
+      ios: {
+        borderColor: "blue",
+        backgroundColor: "lightblue",
+      },
+      android: {
+        borderColor: "yellow",
+      }
+    }),
+    padding: 10,
     paddingHorizontal: 20,
     paddingVertical: 30,
     marginVertical: 10,
     borderWidth: 3,
-    borderColor: "red",
     borderRadius: 25,
   },
   sonic: {
     backgroundColor: "lightblue",
+    fontSize: 24,
   },
   amre: {
     backgroundColor: "lightcoral",
-  },
-  title: {
-    fontSize: 24,
-    color: "white",
   },
   boxShadow: {
     shadowColor: "blue",
